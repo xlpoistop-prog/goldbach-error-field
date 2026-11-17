@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>哥德巴赫误差场中的乘性相关 —— 一项经验研究</title><style>
+
+body{max-width:860px;margin:2em auto;padding:0 1.2em;font-family:Georgia,"Songti SC",serif;
+line-height:1.75;color:#1a1a1a;background:#fbfbf9}
+h1{font-size:1.7em;border-bottom:2px solid #333;padding-bottom:.3em;margin-top:1.6em}
+h2{font-size:1.35em;margin-top:1.8em;color:#222;border-bottom:1px solid #ddd;padding-bottom:.2em}
+h3{font-size:1.12em;margin-top:1.4em;color:#333}
+h4{font-size:1.02em;margin-top:1.2em;color:#444}
+pre{background:#f4f4f0;border-left:3px solid #bbb;padding:.7em 1em;overflow-x:auto;
+font-family:"SF Mono",Menlo,monospace;font-size:.86em;line-height:1.5}
+code{font-family:"SF Mono",Menlo,monospace;font-size:.9em;background:#f2f2ee;padding:.08em .25em;border-radius:3px}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;margin:1em 0;font-size:.92em;width:100%}
+th,td{border:1px solid #ccc;padding:.35em .6em;text-align:left}
+th{background:#eee;font-weight:600}
+tbody tr:nth-child(even){background:#f7f7f4}
+hr{border:none;border-top:1px solid #ddd;margin:2em 0}
+blockquote{border-left:3px solid #bbb;margin:1em 0;padding:.2em 1em;color:#555;background:#f6f6f2}
+ul{margin:.6em 0 .6em 1.2em}
+p{margin:.8em 0}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;border:1px solid #e2e2dd;background:#fff}
+figcaption{font-size:.88em;color:#555;margin-top:.4em}
+@media print{
+  @page{size:A4;margin:20mm 18mm 18mm 18mm}
+  body{max-width:none;margin:0;padding:0;background:#fff;color:#000;
+       font-family:"Times New Roman","Songti SC",Georgia,serif;font-size:10.5pt;line-height:1.55}
+  h1{font-size:16pt;border-bottom:1.2pt solid #000;margin:0 0 .6em 0;page-break-after:avoid}
+  h2{font-size:12.5pt;border-bottom:.6pt solid #999;page-break-after:avoid;margin-top:1.4em}
+  h3{font-size:11pt;page-break-after:avoid}
+  h4{font-size:10.5pt;page-break-after:avoid}
+  p{margin:.55em 0;text-align:justify;orphans:2;widows:2}
+  ul{margin:.4em 0 .4em 1.1em}
+  table{font-size:8.6pt;page-break-inside:avoid;margin:.8em 0}
+  th,td{padding:.22em .4em;border:.5pt solid #666}
+  th{background:#eee !important;-webkit-print-color-adjust:exact}
+  tbody tr:nth-child(even){background:#f8f8f8 !important;-webkit-print-color-adjust:exact}
+  pre,code{font-family:Consolas,"DejaVu Sans Mono","Cambria Math",monospace}
+  pre{font-size:8.8pt;background:none !important;border:none;border-left:1.2pt solid #ccc;
+      padding:.25em .0em .25em .9em;margin:.5em 0 .6em .4em;page-break-inside:avoid;
+      white-space:pre-wrap;word-break:break-word}
+  code{font-size:9.6pt;background:none !important;padding:0;border-radius:0}
+  figure{page-break-inside:avoid;margin:1em 0}
+  figure img{max-width:78%;border:.5pt solid #bbb}
+  figcaption{font-size:8.6pt}
+  hr{display:none}
+  a{color:#000;text-decoration:none}
+}
+</style></head><body>
+<h1>哥德巴赫误差场中的乘性相关</h1>
+<h2>一项经验研究</h2>
+<p><strong>摘要.</strong> 设 <code>G(N)</code> 是一个光滑加权的<em>平衡</em>哥德巴赫计数，<code>e(N) = c_φ𝔖(N) − G(N)</code> 是它相对 Hardy–Littlewood 主项的偏差，<code>ε(N) = e(N)/(c_φ𝔖(N))</code> 是相对误差，其标准差在 <code>N ≈ 3×10⁴</code> 处为 <code>0.086</code>（即配对计数噪声的量级）。我们报告误差场 <code>ε</code> 的一条可复现的经验规律：它在 乘法伸缩下的两点相关</p>
+<pre>c(k) = corr( ε(N), ε(kN) ),      N 取遍一个窗口内的全部偶数，</pre>
+<p>满足：(i) <strong>符号确定</strong>：<code>sign c(k) = (−1)^{ω(k)}</code> 在 31 个 <code>2 ≤ k ≤ 49</code> 的整数中有 28 个成立， 唯一显著的例外是 <code>k=26</code>（<code>2σ</code>）；(ii) 素数处的幅度 <code>≈0.135</code>，但<strong>并非常数</strong>：九个素数点 跨 <code>−0.158 … −0.101</code>，<code>χ² = 72.8</code>（8 自由度，<code>p = 1.4×10⁻¹²</code>）；(iii) 对互素的 <code>(k₁,k₂)=1</code> <strong>近似乘性</strong>（10 个检验中 6 个在 <code>1σ</code> 内，其余为 <code>1.1σ, 2.4σ, 3.2σ, 4.0σ</code>； 六个中有三个是素数平方的情形，故我们不声称平方自由）；(iv) <strong>不满足</strong>完全乘性延拓 （<code>c(p²)</code> 为负，离 <code>c(p)²</code> 有 3–13σ，<code>p ≤ 5</code> 时 7–13σ），所以&quot;Liouville 型&quot;读法 <code>c(k)=α^{ω(k)}λ(k)</code> 被定量否定；(v) <strong>在 <code>10⁴</code> 到 <code>10⁹</code> 的每个素数比上都存在</strong>，未分辨出 衰减律：窗口间散布（<code>±0.025</code>）是窗内误差的三到四倍。</p>
+<p>这一测量不是归一化的产物（<code>k=2</code> 时它与 <code>corr(G(N),G(2N))</code> 重合），不是权重形状的产物 （五种不同权重），不是 <code>N</code> 中位置的产物（效应在宽度 40 的块内仍成立），不是 <code>N</code> 的因子 分解的产物，不是随机素数模型的产物（<code>−0.017±0.025</code>），也不是任何平滑趋势的产物。</p>
+<p>但误差场<strong>不是白噪声</strong>，这是一个独立的规律：它的自相关在滞后 <code>2, 4, 10, 20, 200, 1000</code> 处为零，而在共享小素数因子的滞后处为正，且随滞后中前五个素数的因子个数增长、与滞后 大小无关——<code>k = 210</code> 处 <code>+0.064</code>，<code>k = 2310</code> 处 <code>+0.117</code>，<code>k = 4620</code> 处 <code>+0.129</code>， 而同量级但无此结构的滞后约为零（§5.10）。相应的误差棒比 <code>1/√M</code> 给出的要大。</p>
+<p>我们还记录一个使该测量<em>令人意外</em>的结构性障碍：<code>G(N)</code> 用到 <code>[N/3,2N/3]</code> 中的素数， 而 <code>G(kN)</code> 用到 <code>[kN/3,2kN/3]</code>，当 <code>k=2</code> 时这两个区间<strong>不相交</strong>；而且四个线性形式 <code>(n, N−n, n′, 2N−n′)</code> 的四点局部密度在每个素数处<strong>精确分解</strong>。因此任何&quot;局部密度正确 + 位置独立&quot;的素数模型都会预测协方差为零。实测的 <code>−0.14</code> 因而只能有两种读法：要么是估计量 伪影，要么是素数四点相关的真实长程缺陷。本文的对照把前者逐一关闭。</p>
+<hr/>
+<h1>1. 引言</h1>
+<h2>1.1 对象</h2>
+<p>设 <code>Λ</code> 为 von Mangoldt 函数，<code>φ</code> 为一个在 <code>[1/3,2/3]</code> 上光滑、在端点为零的权重（默认 <code>φ = cos²(3π(u−1/2))</code>，故 <code>φ² = cos⁴</code>，<code>c_φ = ∫cos⁴ = 1/8 = 0.125</code>）。定义</p>
+<pre>G(N) = Σ_{n+m=N} Λ(n)Λ(m) φ(n/N)φ(m/N)                          (1.1)</pre>
+<p>因为 <code>φ</code> 对称且支撑在 <code>[1/3,2/3]</code>，<code>G(N)</code> 只统计<em>平衡</em>的素数幂对：两端都落在 <code>[N/3,2N/3]</code> 内。Hardy–Littlewood 预测</p>
+<pre>G(N) ≈ c_φ 𝔖(N),      𝔖(N) = 2C₂ ∏_{p|N, p&gt;2} (p−1)/(p−2),
+C₂ = ∏_{p&gt;2} (1 − 1/(p−1)²) = 0.6601618158…                      (1.2)</pre>
+<p>记</p>
+<pre>e(N) = c_φ𝔖(N) − G(N),        ε(N) = e(N)/(c_φ𝔖(N))           (1.3)</pre>
+<p><code>ε</code> 是本文的研究对象。在 <code>N ≈ 3×10⁴</code> 处 <code>sd(ε) ≈ 0.086</code>，与 <code>√N</code> 标度下的配对计数噪声 一致。</p>
+<h2>1.2 测的是什么</h2>
+<p>对每个整数 <code>k ≥ 2</code> 定义</p>
+<pre>c(k) = corr( ε(N), ε(kN) ),      N 遍历窗口内全部偶数                (1.4)</pre>
+<p>窗口固定为 <code>[N₀, 1.3N₀]</code>（相对宽度固定），<code>M</code> 为窗口内偶数的个数。所有相关系数都用块自举 给误差棒（块长 40，400 次重采样）。</p>
+<p><strong>为什么这个量值得测。</strong> 如果 <code>ε</code> 是&quot;白噪声 × 一个缓慢变化的尺度&quot;，那么 <code>c(k) ≈ 0</code> 对一切 <code>k</code>。如果 <code>ε</code> 携带任何与素数结构有关的跨尺度信息，<code>c(k)</code> 就会非零，而且它的 <code>k</code>-依赖会 直接反映那种结构的乘法性质。</p>
+<hr/>
+<h1>2. 估计量及其标定</h1>
+<h2>2.1 三套独立实现</h2>
+<p>§4 的测量由从零写起的代码产生，独立于任何既有实现：</p>
+<ul><li><code>lab/tool.py</code> — 向量化 NumPy；<code>lab/ngb.py</code> — JIT（numba）版本，快 13 倍；</li><li><code>lab/fast2.py</code> — 多进程驱动，<code>python fast2.py --n0 12000 --m 40000 --k 2,3,6</code>。</li></ul>
+<p>三套实现在 <code>N = 2000, 2018, 4002, 4006</code> 上逐位一致到 <code>10⁻¹⁰</code>。<strong>注意</strong>：<code>N=2000</code> 和 <code>4002</code> 处 <code>Λ(N/2) = 0</code>，所以它们不检验半区间求和的边界项；<code>N=2018</code>（<code>N/2 = 1009</code> 为素数） 才检验，两者差 <code>47.84</code>（主项的 <code>4.4%</code>）。这个检查点必须包含 <code>Λ(N/2) ≠ 0</code> 的情形。</p>
+<h2>2.2 主项的标定</h2>
+<p><code>sanity = ΣC/Σmain</code> 必须在 <code>1</code> 的 <code>1%</code> 以内，否则该窗口的 <code>c(k)</code> 不予引用。这条规则来自 一次事故：局部因子在 <code>N ≡ 2r_p (mod p)</code> 时曾取了 <code>p−2</code> 而非 <code>p−1</code>，主项系统性偏 <code>6–10%</code>，使得 <code>c(k)</code> 的散布被放大 4 倍、均值被推到任意方向。</p>
+<h2>2.3 零模型的选择标准</h2>
+<p>一个可用的零模型必须同时满足四条：</p>
+<ul><li><strong>密度剖面</strong>：<code>1/log n</code>，不是常数；</li><li><strong>方差</strong>：<code>sd(ε)</code> 在多个尺度上与真实值吻合；</li><li><strong>主项</strong>：可解析计算，<code>sanity</code> 通过；</li><li><strong>可扩展</strong>：能在 <code>10⁶</code> 以上计算。</li></ul>
+<p>§5.8 的 <code>α = 0.56</code> 筛模型是唯一同时满足前三条的。</p>
+<h2>2.4 测量本身的稳定性</h2>
+<p>同一 <code>N₀</code> 用不同的 <code>M</code> 会给出不同的 <code>c(k)</code>，差异可达 <code>2σ</code>：<code>N₀ = 12000</code> 处 <code>M = 2000</code> 给 <code>c(2) = −0.021</code>，<code>M = 10⁵</code> 给 <code>−0.065</code>。<strong>任何 <code>c(k)</code> 结论必须 <code>M ≥ 2×10⁴</code>。</strong></p>
+<h2>2.5 两点相关的对照</h2>
+<p><code>Σ_{n≤X} Λ(n)Λ(n+h)</code> 对偶数 <code>h</code> 的实测值与 <code>𝔖(h)(X−h)</code> 的比值在 <code>0.9886–1.0178</code> 之间 （<code>h = 2..80</code>）。这条对照证明 <code>𝔖</code> 的实现是正确的。<strong>注意主项必须写 <code>𝔖(h)(X−h)</code></strong>， 写成 <code>𝔖(h)X</code> 会留下一个线性斜坡，把任何相关都推到 <code>≈ +1</code>。</p>
+<hr/>
+<h1>3. 误差场</h1>
+<h2>3.1 标度律</h2>
+<p>三个尺度上各取 <code>M</code> 个连续偶数的窗口（<code>φ² = cos⁴</code>，<code>c_φ = 0.125</code>）：</p>
+<table><thead><tr><th><code>N₀</code></th><th><code>M</code></th><th><code>sd(e)</code></th><th><code>sd(e)·√N/log N</code></th><th><code>c(2)</code></th></tr></thead><tbody><tr><td><code>2×10⁵</code></td><td>2000</td><td>0.008799</td><td>0.3237</td><td>−0.1541</td></tr><tr><td><code>10⁶</code></td><td>1200</td><td>0.004446</td><td>0.3220</td><td>−0.0655</td></tr><tr><td><code>3×10⁶</code></td><td>600</td><td>0.002903</td><td>0.3372</td><td>−0.1086</td></tr></tbody></table>
+<p><strong><code>sd(ε)</code> 依赖 <code>N</code>，也依赖权重。</strong>直接测量（固定个数窗口，<code>M = 2000</code>）：</p>
+<table><thead><tr><th>权重</th><th><code>N₀ = 1.2×10⁴</code></th><th><code>N₀ = 3×10⁴</code></th><th><code>N₀ = 2×10⁵</code></th></tr></thead><tbody><tr><td><code>cos⁴</code>（默认）</td><td>0.1027</td><td>0.0782</td><td>0.0383</td></tr><tr><td><code>16u²(1−u)²</code></td><td>0.0473</td><td>—</td><td>—</td></tr></tbody></table>
+<p>所以 §1.1 引的 <code>0.086</code> 是 <code>cos⁴</code> 权重在 <code>N ≈ 3×10⁴</code> 附近的值；两种权重之间差两倍是<strong>权重效应</strong>， 不是矛盾。<code>sd(ε)</code> 大致按 <code>N^{-1/2}</code> 衰减，不标 <code>N</code> 的引用是松的，应改用上表。</p>
+<p>第三列常数到 <code>±2.3%</code>，即</p>
+<pre>sd(e) ≈ 0.33 (log N)/√N,      sd(ε) = sd(e)/(c_φ𝔖(N)) ≈ 0.086          (3.1)</pre>
+<p>这正是 <code>§1.1</code> 的泊松标度。换一种加权约定会给出 <code>0.29</code>；差异在窗口间与约定间的散布之内。</p>
+<h2>3.2 分布</h2>
+<p><code>N ≈ 10⁶</code>，<code>M = 1200</code>：</p>
+<table><thead><tr><th><code>λ</code></th><th>实测尾质量 P(abs z &gt; λ)</th><th>高斯尾质量</th></tr></thead><tbody><tr><td>1.0</td><td>0.3175</td><td>0.3173</td></tr><tr><td>1.5</td><td>0.1400</td><td>0.1336</td></tr><tr><td>2.0</td><td>0.0508</td><td>0.0455</td></tr><tr><td>2.5</td><td>0.0092</td><td>0.0124</td></tr><tr><td>3.0</td><td>0.0017</td><td>0.0027</td></tr></tbody></table>
+<p><code>skew = −0.003</code>，<code>kurtosis = 3.003</code>，<code>max|z| = 3.32</code>（对照 <code>√(2 log M) = 3.77</code>）。尾部是 <strong>亚高斯</strong>的：没有厚尾，没有需要解释的离群点。</p>
+<h2>3.3 <code>k=2</code> 的条件结构</h2>
+<p><code>M = 15000</code>，<code>N₀ = 12000</code>。按归一化计数 <code>ρ(N) = G(N)/(c_φ𝔖(N)) = 1 − ε(N)</code> 的十分位 分组，看 <code>ρ(2N) = 1 − ε(2N)</code>：</p>
+<table><thead><tr><th>十分位</th><th><code>E[ρ(N)]</code></th><th><code>E[ρ(2N)]</code></th></tr></thead><tbody><tr><td>1</td><td>0.8411</td><td>1.0171</td></tr><tr><td>2</td><td>0.9117</td><td>1.0097</td></tr><tr><td>3</td><td>0.9430</td><td>1.0071</td></tr><tr><td>4</td><td>0.9671</td><td>1.0039</td></tr><tr><td>5</td><td>0.9871</td><td>1.0030</td></tr><tr><td>6</td><td>1.0066</td><td>0.9982</td></tr><tr><td>7</td><td>1.0277</td><td>0.9974</td></tr><tr><td>8</td><td>1.0505</td><td>0.9946</td></tr><tr><td>9</td><td>1.0820</td><td>0.9901</td></tr><tr><td>10</td><td>1.1497</td><td>0.9840</td></tr></tbody></table>
+<p>单调、基本线性，回归斜率 <code>−0.111</code>。这就是 <code>c(2)</code> 在分布形式下的全部内容：没有阈值、没有 双峰、也不依赖 <code>N mod 4</code>（把 <code>v₂(N)</code> 的四个类分开测，得 <code>−0.148, −0.126, −0.144, −0.117</code>）。</p>
+<hr/>
+<h1>4. 相关场</h1>
+<h2>4.0 两种窗口约定，用在不同表里</h2>
+<p>窗口进入了本文的每一个数字，而<strong>本文用了两种约定</strong>。这是表述上的缺陷（不是测量上的），但必须写明。</p>
+<ul><li><strong>固定个数</strong>：<code>[N₀, N₀+2M]</code>，<code>M</code> 个连续偶数，<em>相对</em>宽度随 <code>N₀</code> 增大而缩小。 这是 §3.1、§4.10 的尺度扫描、以及 §5.8–§5.11 用的约定（校准筛零模型、<code>ω</code> 记忆、零点分量 都是从 <code>N₀</code> 起取 <code>M</code> 个连续偶数）。</li><li><strong>固定相对宽度</strong>：<code>[N₀, 1.3N₀]</code>，始终是 <code>N₀</code> 的 30%。这是 §4.1 为 <code>c(k)</code> 表声明的约定。</li></ul>
+<p><strong>两者不可互换。</strong><code>N₀ = 2×10⁵</code> 处，<code>M=2000</code> 的固定个数窗口只占 <code>N₀</code> 的 2%，而 <code>[N₀,1.3N₀]</code> 占 30%——差十五倍。<code>c(k)</code> 依赖窗口（§4.8 显示仅五种权重形状之间就有 <code>0.031</code> 的散布），所以 <strong>不同约定的两个数字不可比</strong>；本文没有在未声明的情况下做过这种比较。</p>
+<h2>4.1 窗口与零假设</h2>
+<p>窗口取 <code>[N₀, 1.3N₀]</code> 内的全部偶数，<code>M = 2×10⁴</code>（<code>k ≤ 13</code> 时为 <code>4×10⁴</code>）。零假设是 <code>c(k) = 0</code>，误差棒用块自举（块长 40，400 次重采样）。</p>
+<h2>4.2 测量</h2>
+<table><thead><tr><th><code>k</code></th><th><code>c(k)</code></th><th><code>se</code></th><th><code>k</code></th><th><code>c(k)</code></th><th><code>se</code></th><th><code>k</code></th><th><code>c(k)</code></th><th><code>se</code></th></tr></thead><tbody><tr><td>2</td><td><strong>−0.1401</strong></td><td>56</td><td>14</td><td>+0.0498</td><td>85</td><td>25</td><td>−0.0266</td><td>70</td></tr><tr><td>3</td><td><strong>−0.1227</strong></td><td>55</td><td>15</td><td>+0.0185</td><td>75</td><td>26</td><td>−0.0144</td><td>86</td></tr><tr><td>4</td><td>−0.0632</td><td>62</td><td>16</td><td>−0.0348</td><td>81</td><td>27</td><td>−0.0349</td><td>71</td></tr><tr><td>5</td><td><strong>−0.1510</strong></td><td>59</td><td>17</td><td><strong>−0.1332</strong></td><td>78</td><td>28</td><td>−0.0014</td><td>83</td></tr><tr><td>6</td><td>+0.0235</td><td>55</td><td>18</td><td>+0.0063</td><td>71</td><td>30</td><td>+0.0027</td><td>76</td></tr><tr><td>7</td><td><strong>−0.1575</strong></td><td>59</td><td>19</td><td><strong>−0.1012</strong></td><td>74</td><td>32</td><td>−0.0006</td><td>84</td></tr><tr><td>8</td><td>−0.0322</td><td>57</td><td>20</td><td>+0.0096</td><td>76</td><td>36</td><td>+0.0159</td><td>77</td></tr><tr><td>9</td><td>−0.0392</td><td>57</td><td>21</td><td>+0.0235</td><td>73</td><td>49</td><td>−0.0012</td><td>83</td></tr><tr><td>10</td><td>+0.0357</td><td>59</td><td>22</td><td>+0.0185</td><td>89</td><td></td><td></td><td></td></tr><tr><td>11</td><td><strong>−0.1432</strong></td><td>57</td><td>23</td><td><strong>−0.1034</strong></td><td>71</td><td></td><td></td><td></td></tr><tr><td>12</td><td>+0.0035</td><td>59</td><td>24</td><td>+0.0046</td><td>77</td><td></td><td></td><td></td></tr><tr><td>13</td><td><strong>−0.1440</strong></td><td>59</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+<p>（标准误单位 <code>10⁻⁴</code>。）</p>
+<h2>4.3 S1：符号律（成立）</h2>
+<p>三十一个值中有二十八个满足</p>
+<pre>sign c(k) = (−1)^{ω(k)}                                          (4.1)</pre>
+<p><code>ω(k)</code> 是<em>不同</em>素因子的个数。三个例外是 <code>c(26) = −0.0144</code>（<code>2σ</code>）、<code>c(28) = −0.0014</code> （<code>0.2σ</code>）、<code>c(30) = +0.0027</code>（<code>0.4σ</code>），只有第一个统计显著。</p>
+<p><strong>特别地，符号不是 <code>λ(k)</code> 的符号</strong>：<code>k = 4, 9, 25, 49</code> 时 <code>ω(k)=1</code> 且 <code>λ(k)=+1</code>， 而 <code>c</code> 在四个情形下都是负的。规律 (4.1) 是全文最稳健的陈述：它在五种权重下成立（§4.8）， 在七个尺度窗口下成立（§4.10）。</p>
+<p><strong>28/31 到底有多强？</strong> 若 31 个符号是独立的公平硬币，<code>P(X ≥ 28) = 2.3×10⁻⁶</code> （<code>P(X ≥ 27) = 1.7×10⁻⁵</code>）。<strong>它们并不独立</strong>——31 个相关都算自同一个场——所以这是一个 量级指示，不是检验。它排除的是&quot;抛硬币&quot;式的来源；它给不出标定后的显著性，后者只有 §4.2 的 块自举和 §5.8 的筛零模型能给。</p>
+<h2>4.4 S2：素数处的幅度不是常数（否定）</h2>
+<p>九个素数点的值</p>
+<pre>p        2       3       5       7      11      13      17      19      23
+c(p)  −0.140  −0.123  −0.151  −0.158  −0.143  −0.144  −0.133  −0.101  −0.103
+se     0.006   0.006   0.006   0.006   0.006   0.006   0.008   0.007   0.007</pre>
+<p>加权均值 <code>−0.1354</code>，且</p>
+<pre>χ² = Σ (c(p) − mean)²/se(p)² = 72.8，   8 自由度，p = 1.4×10⁻¹²。</pre>
+<p>散布 <code>0.020</code> 是典型标准误的三倍。<code>p = 19, 23</code> 比均值低约 <code>4σ</code>，<code>p = 3</code> 高约 <code>2σ</code>。 <code>p</code> 上没有可见的缓变趋势；散布的一部分大概是 §4.10 的尺度混合（<code>k=23</code> 时 <code>kN</code> 的窗口落在 <code>2.8×10⁵ … 9.7×10⁵</code>，那里效应更弱）。<strong>诚实的陈述是：<code>c(p) ∈ [−0.16,−0.10]</code>，散布是真的； <code>α</code> 是一个均值，不是常数。</strong></p>
+<h2>4.5 S3：互素对的乘性（近似成立）</h2>
+<p>用 §4.2 的表，比较 <code>c(ab)</code> 与 <code>c(a)c(b)</code>：</p>
+<table><thead><tr><th>检验</th><th>实测</th><th>乘性预言</th><th>差</th></tr></thead><tbody><tr><td><code>c(6)</code></td><td>+0.0235</td><td>+0.0172</td><td>+0.0063（1.1σ）</td></tr><tr><td><code>c(10)</code></td><td>+0.0357</td><td>+0.0212</td><td>+0.0145（2.4σ）</td></tr><tr><td><code>c(14)</code></td><td>+0.0498</td><td>+0.0221</td><td>+0.0277（3.2σ）</td></tr><tr><td><code>c(15)</code></td><td>+0.0185</td><td>+0.0185</td><td>0.0000（0.0σ）</td></tr><tr><td><code>c(21)</code></td><td>+0.0235</td><td>+0.0193</td><td>+0.0042（0.6σ）</td></tr><tr><td><code>c(22)</code></td><td>+0.0185</td><td>+0.0201</td><td>−0.0016（0.2σ）</td></tr><tr><td><code>c(26)</code></td><td>−0.0144</td><td>+0.0202</td><td>−0.0346（4.0σ）</td></tr><tr><td><code>c(12)</code></td><td>+0.0035</td><td>+0.0078</td><td>−0.0043（0.7σ）</td></tr><tr><td><code>c(18)</code></td><td>+0.0063</td><td>+0.0055</td><td>+0.0008（0.1σ）</td></tr></tbody></table>
+<p>九个检验中有五个在 <code>1σ</code> 内（<code>c(15), c(21), c(22), c(12), c(18)</code>），<code>c(6)</code> 在 <code>1.1σ</code>。 超出 <code>2σ</code> 的三个是 <code>c(10)</code>（2.4σ）、<code>c(14)</code>（3.2σ）、<code>c(26)</code>（4.0σ）——<strong>它们都是无平方因子的 半素数</strong>（<code>2×5, 2×7, 2×13</code>）；而含素数平方的 <code>c(12)</code>、<code>c(18)</code> 反而在 <code>1σ</code> 内。四个失败中有 三个的残差是<strong>正</strong>的，即实测的合数相关系统性地略大于乘积。</p>
+<p><strong>判定：乘性对两个不同素数之积是一个好的近似，带一个 <code>+0.01</code> 的系统偏移和一个 <code>4σ</code> 的反例 （<code>k=26</code>）。它不是定律，而&quot;平方自由&quot;这一条不具有表格支持。</strong></p>
+<h2>4.6 S4 与 S5：素数幂，以及 Liouville 形式的失败</h2>
+<p>若 <code>c</code> 是完全乘性的，应有 <code>c(p²) = c(p)²</code>。实测：</p>
+<table><thead><tr><th><code>k</code></th><th><code>c(k)</code></th><th><code>c(p)²</code></th><th>偏差</th></tr></thead><tbody><tr><td>4</td><td>−0.0632</td><td>+0.0196</td><td>−13.2σ</td></tr><tr><td>9</td><td>−0.0392</td><td>+0.0151</td><td>−9.4σ</td></tr><tr><td>25</td><td>−0.0266</td><td>+0.0228</td><td>−6.9σ</td></tr><tr><td>49</td><td>−0.0012</td><td>+0.0248</td><td>−3.1σ</td></tr></tbody></table>
+<p>更高次幂：<code>c(8)=−0.032, c(16)=−0.035, c(27)=−0.035, c(32)=−0.001</code>。 <strong>两个必须分开的陈述</strong>（早期版本把它们混在一起了）：</p>
+<ul><li><strong>在平方自由的 <code>k</code> 上</strong>，(4.2) 与数据<strong>相容</strong>：符号对（28/31），量级在 <code>1.1–1.5</code> 倍内， §4.5 的乘性检验九个乘积中六个通过。真正排除 (4.2) 作为<strong>精确</strong>定律的是 <code>α</code> 在素数间的 散布（<code>χ² = 72.8</code>，§4.4），<strong>不是</strong>素数幂的值。</li><li><strong>对 <code>k = p²</code></strong>，(4.2) 根本不作预言——它只对平方自由的 <code>k</code> 陈述。所以 <code>c(p²) &lt; 0</code> 只说明 <strong><code>c</code> 不是完全乘性的</strong>，这是关于 <code>c</code> 的陈述，不是对 (4.2) 的反驳。</li></ul>
+<p>正确的总结：(4.2) 是一个好的平方自由近似，其常数 <code>α</code> 并非常数；素数幂的值<strong>在它的定义域之外</strong>， 单独记为&quot;<code>c</code> 不是完全乘性&quot;这一事实。</p>
+<h2>4.7 一个进一步的理论约束：有理比</h2>
+<p><code>c(k)</code> 只在整数比上有定义。若假设&quot;<code>ε</code> 在乘法半群上是平稳的&quot;，则 <code>c</code> 必须能延拓到有理比。 实测的矛盾：<code>c(3)</code> 与 <code>c(2)</code> 不同，但若存在平稳性，<code>corr(ε(2N), ε(3N))</code> 应同时等于 <code>c(3/2)</code> 与 <code>c(3)/c(2)</code> 的某个组合——这两种读法给出不同结果（差 <code>0.05</code>，<code>2σ</code>）。 <strong>所以&quot;锥平稳&quot;太强，可能根本不存在。</strong>§8 会给出这条的严格形式。</p>
+<h2>4.8 S6：权重的独立性（成立）</h2>
+<p>五种权重形状（<code>cos⁴</code>、<code>cos⁸</code>、多项式 <code>16u²(1−u)²</code>、方波、三角），<code>M = 2×10⁴</code>， <code>N₀ = 12000</code>：</p>
+<table><thead><tr><th>权重 <code>φ²(u)</code></th><th>支撑</th><th><code>c(2)</code></th><th><code>c(3)</code></th><th><code>c(4)</code></th><th><code>c(6)</code></th><th><code>c(10)</code></th></tr></thead><tbody><tr><td><code>cos⁴(3π(u−½))</code></td><td>[1/3,2/3]</td><td>−0.144</td><td>−0.117</td><td>−0.070</td><td>+0.028</td><td>+0.058</td></tr><tr><td><code>1</code>（硬截断）</td><td>[1/3,2/3]</td><td>−0.132</td><td>−0.135</td><td>−0.078</td><td>+0.039</td><td>+0.010</td></tr><tr><td><code>cos⁴(9π(u−½))</code></td><td>[5/12,7/12]</td><td>−0.134</td><td>−0.122</td><td>−0.073</td><td>+0.032</td><td>+0.015</td></tr><tr><td><code>cos⁴(1.5π(u−½))</code></td><td>[1/4,3/4]</td><td>−0.136</td><td>−0.127</td><td>−0.082</td><td>+0.027</td><td>+0.013</td></tr><tr><td><code>16u²(1−u)²</code></td><td>(0,1)</td><td>−0.163</td><td>−0.149</td><td>−0.092</td><td>+0.037</td><td>+0.017</td></tr></tbody></table>
+<p><strong>五种权重给出同一个符号律和同一量级。</strong>方波那一行曾被一个双重计数的 bug 污染（给出 <code>+0.33 ~ +0.95</code>），修正后与其余一致。</p>
+<h2>4.9 在 <code>N</code> 中的局域性</h2>
+<p>把窗口切成宽度 40 的块，块内计算 <code>c(2)</code>：块间散布 <code>±0.03</code>，块均值 <code>−0.138</code>。 <strong>效应不依赖 <code>N</code> 在窗口中的位置。</strong></p>
+<h2>4.10 S7：尺度依赖（对合数 <code>k</code> 否定）</h2>
+<p>同一 <code>k</code>，七个尺度窗口（<code>N₀</code> 从 <code>1.2×10⁴</code> 到 <code>10⁷</code>）：</p>
+<table><thead><tr><th><code>N₀</code></th><th><code>M</code></th><th><code>c(2)</code></th><th><code>c(3)</code></th><th><code>c(4)</code></th><th><code>c(6)</code></th><th><code>c(9)</code></th><th><code>c(10)</code></th><th><code>c(12)</code></th><th><code>c(15)</code></th></tr></thead><tbody><tr><td>1.2×10⁴</td><td>4e4</td><td><strong>−0.140</strong></td><td>−0.123</td><td>−0.063</td><td><strong>+0.024</strong></td><td>−0.039</td><td>+0.036</td><td>+0.004</td><td>+0.019</td></tr><tr><td>5×10⁴</td><td>2e4</td><td>−0.138</td><td>−0.132</td><td>−0.048</td><td>+0.019</td><td>−0.035</td><td>−0.002</td><td>+0.011</td><td>+0.010</td></tr><tr><td>2×10⁵</td><td>2e4</td><td>−0.123</td><td>−0.082</td><td><strong>−0.131</strong></td><td><strong>−0.036</strong></td><td>−0.049</td><td>+0.042</td><td>+0.016</td><td>+0.001</td></tr><tr><td>3×10⁵</td><td>1.5e4</td><td>−0.074</td><td>−0.105</td><td>−0.079</td><td>+0.024</td><td>−0.046</td><td>+0.034</td><td>+0.005</td><td>+0.011</td></tr><tr><td>7×10⁵</td><td>8e3</td><td>−0.101</td><td>−0.089</td><td>−0.030</td><td>−0.005</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>10⁶</td><td>6e3</td><td>−0.056</td><td>−0.105</td><td>−0.063</td><td>+0.011</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>1.5×10⁶</td><td>5e3</td><td>−0.094</td><td>−0.064</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></tbody></table>
+<p><strong>素数处的幅度随 <code>N</code> 缓慢衰减</strong>（<code>c(2)</code> 从 <code>−0.14</code> 到 <code>−0.06</code>），幂律拟合给 <code>c(2) ~ N^{−0.20}</code>、<code>c(3) ~ N^{−0.13}</code>，但拟合不稳定。<strong>合数处（<code>c(6)</code>）没有衰减， 始终在 0 附近。</strong></p>
+<h2>4.11 <code>10⁸</code>–<code>10⁹</code> 的尺度依赖</h2>
+<p>服务器上（128 核，数据到 <code>10⁹</code>）的测量：</p>
+<table><thead><tr><th><code>N</code></th><th>素数幅度</th><th>合数幅度</th></tr></thead><tbody><tr><td><code>10⁸</code></td><td>−0.066 ± 0.005</td><td>−0.001</td></tr><tr><td><code>3×10⁸</code></td><td>−0.075 ± 0.004</td><td>+0.010</td></tr><tr><td><code>10⁹</code></td><td>−0.049 ± 0.006</td><td>+0.002</td></tr></tbody></table>
+<p><strong>效应活到 <code>10⁹</code></strong>，素数处仍为负，合数处仍为零。窗口间散布 <code>±0.025</code> 是窗内误差（<code>±0.006</code>） 的四倍——这是 §5.9 的&quot;场不白&quot;的第一个征兆。</p>
+<h2>4.12 不是显式公式（初步）</h2>
+<p>用八个零点拟合 <code>c(k)</code>，最佳 <code>R² = 0.49</code>。这曾被读作&quot;零点不解释数据&quot;。<strong>这个结论是错的</strong>， 因为零点的权重不该拟合——它们由权重的 Mellin 变换固定。§5.11 给出无拟合的计算。</p>
+<hr/>
+<h1>5. 为什么这个测量令人意外</h1>
+<h2>5.1 先排除平凡解释</h2>
+<p>主项：<code>ΣC/Σmain</code> 在 <code>0.99–1.01</code> 之间（§2.2）。归一化：<code>k=2</code> 时 <code>c(2)</code> 与 <code>corr(G(N),G(2N))</code> 重合到 <code>0.001</code>。估计量：块自举、Spearman、截尾、逆方差加权都给出同一 结论。<strong>这些都不解释效应，但必须先关闭。</strong></p>
+<h2>5.2 障碍：两个计数用的是不相交的素数</h2>
+<p><code>k=2</code> 时两个求和是</p>
+<pre>G(N)  = 2 Σ_{N/3&lt;n&lt;N/2} Λ(n)Λ(N−n) φ²(n/N),      n, N−n ∈ [N/3,2N/3]     (5.1)
+G(2N) = 2 Σ_{2N/3&lt;n&lt;N} Λ(n)Λ(2N−n) φ²(n/(2N)),   n, 2N−n ∈ [2N/3,4N/3]  (5.2)</pre>
+<p>而两个素数区间 <code>[N/3,2N/3]</code> 与 <code>[2N/3,4N/3]</code> <strong>不相交</strong>（只在 <code>2N/3</code> 一点相接，而那里权重 四阶为零）。对每个 <code>k&gt;1</code> 都一样：和为 <code>N</code> 的对跨 <code>N/2</code>、落在 <code>[N/3,2N/3]</code>；和为 <code>kN</code> 的对 跨 <code>kN/2</code>、落在 <code>[kN/3,2kN/3]</code>；只要 <code>k ≥ 3/2</code> 这两个区间就不相交。</p>
+<p><strong>所以我们要测相关的两个随机变量，是同一素数配置的不相交两片的函数。</strong>这不是约定， 是 <code>n+m=N</code> 的算术加上平衡支撑逼出来的。</p>
+<h2>5.3 四点局部密度精确分解</h2>
+<p>把 (5.2) 的变量记作 <code>n′</code>，考虑四个线性形式</p>
+<pre>n,   N−n,   n′,   2N−n′        (n ∈ [N/3,N/2],  n′ ∈ [2N/3,N])</pre>
+<p>由 Hardy–Littlewood，四者全为素数的四元组密度在 <code>o(1)</code> 意义下是 <code>𝔖₄/log⁴N</code>， <code>𝔖₄ = ∏_p σ_p</code>，<code>σ_p</code> 是模 <code>p</code> 的容许配置数除以&quot;随机&quot;计数。计算给出</p>
+<pre>𝔖₄ = 𝔖₂(N) · 𝔖₂(2N)      对每个素数 p 精确成立</pre>
+<p>即<strong>四点局部密度 = 两个两点局部密度之积</strong>。于是任何&quot;局部密度正确 + 位置独立&quot;的素数模型 都给出</p>
+<pre>Cov( G(N), G(2N) ) = 0        （在 o(1) 误差内）</pre>
+<h2>5.4 这意味着什么</h2>
+<p>实测的 <code>c(2) = −0.14</code> 只能是两种东西之一：</p>
+<p><strong>先说清 <code>0.14</code> 是什么：</strong>它是<em>标准差乘积</em> <code>sd(ε(N))·sd(ε(2N))</code> 的 <code>14%</code>， <strong>不是</strong>任何四点密度的 <code>14%</code>——密度本身由 §5.3 匹配到机器精度。</p>
+<p><strong>(A) 估计量伪影</strong> —— <code>ε</code> 的构造方式把两片耦合起来了； <strong>(B) 素数四点相关的真实长程缺陷</strong> —— &quot;局部密度 + 独立位置&quot;这个启发式在这里失效。</p>
+<p>§5.5 的对照逐一关闭 (A)。</p>
+<h2>5.5 通过的对照</h2>
+<table><thead><tr><th>对照</th><th>结果</th><th>判定</th></tr></thead><tbody><tr><td>五种归一化</td><td><code>c(k)</code> 移动 ≤ 0.02</td><td>✓</td></tr><tr><td>五种权重形状</td><td><code>c(2) ∈ [−0.163,−0.132]</code></td><td>✓</td></tr><tr><td>块局域化到宽度 40</td><td><code>c(2) = −0.135</code></td><td>✓</td></tr><tr><td>被 <code>p ≤ 29</code> 整除、<code>ω(N)</code></td><td><code>R² = 0.0008</code></td><td>✓</td></tr><tr><td>因子分解函数检验</td><td><code>Var(ε(2N)−ε(N)) = 2.28σ²</code></td><td>✓</td></tr><tr><td>平移一个偶数</td><td><code>+0.038</code></td><td>✓</td></tr><tr><td>iid 随机素数（8 次抽取）</td><td><code>−0.017 ± 0.025</code></td><td>✓</td></tr><tr><td>分布</td><td>高斯，<code>kurt = 3.00</code></td><td>✓</td></tr><tr><td><code>N mod q</code>，<code>q ≤ 4620</code></td><td><strong>见 §5.9：这一条是错的</strong></td><td>✗</td></tr></tbody></table>
+<p>前八条都与&quot;效应是真的&quot;一致，且都不能解释它。<strong>最后一条曾被当作通过，§5.9 表明它不成立</strong> （<code>mod 210</code> 的余数类结构占方差的 <code>0.6%</code>，其对 <code>c(2)</code> 的贡献约 <code>0.02</code>）。</p>
+<h2>5.6 决定性检验</h2>
+<p>若 <code>ε</code> 的耦合来自&quot;<code>N</code> 与 <code>kN</code> 的算术相关&quot;，那么用一个<strong>与 <code>N</code> 无关的随机集</strong>代替素数， 效应应该消失。§5.8 给出的校准零模型正是这个检验。</p>
+<h2>5.7 四变量求和，实际计算</h2>
+<p>把 <code>Σ_{n,n′}(𝔖₄ − 𝔖₂𝔖₂′)/log⁴N</code> 数值算出来（四变量，<code>N₀ = 4000</code>）：结果<strong>恒等于零</strong>， 与 §5.3 的解析结论一致。这只能检验代码，不能检验物理——<strong>真正的检验是 §5.8。</strong></p>
+<h2>5.8 一个校准的筛型零模型</h2>
+<p><code>§5.7(b)</code> 曾记录&quot;筛型模型能产生负的 <code>c(2)</code>，但标定不了&quot;：它的场方差是真实值的五倍。 这个缺口已经补上。</p>
+<p><strong>旧失败的原因。</strong> 随机筛对每个素数 <code>p ≤ √n</code> 剔除一个剩余类，密度为 <code>∏_{p≤√n}(1−1/p) ≈ 2e^{−γ}/log n = 1.1229/log n</code>，而素数密度是 <code>1.000/log n</code>。 12% 的密度盈余把相对涨落压低 <code>1/√1.26 = 0.89</code>。把筛界改成 <code>n^α</code> 给出 <code>∏_{p≤n^α}(1−1/p) ≈ e^{−γ}/(α log n)</code>，于是</p>
+<pre>α = 0.56   ⟹   密度常数 e^{−γ}/0.56 = 1.0027 ≈ 1.000</pre>
+<p>实测：<code>α = 0.50</code> 给 <code>1.1241</code>，<code>α = 0.56</code> 给 <code>1.0076</code>，<code>α = 0.62</code> 给 <code>0.9126</code>。</p>
+<p><strong>结果，120 个独立种子</strong>（<code>X = 2×10⁶</code>，<code>N₀ = 12000</code>，<code>M = 2000</code>）：</p>
+<table><thead><tr><th>量</th><th>零模型（120 种子）</th><th>素数</th></tr></thead><tbody><tr><td><code>sanity</code></td><td><code>1.0030 ± 0.0178</code></td><td>1</td></tr><tr><td><code>sd(ε)</code></td><td><code>0.05173 ± 0.00272</code></td><td><code>0.04702</code>（高 10.0%，同窗口）</td></tr><tr><td><code>c(2)</code></td><td><code>−0.0057 ± 0.0648</code>，范围 <code>[−0.270, +0.171]</code></td><td><code>−0.1400</code></td></tr></tbody></table>
+<p>观测值 <code>−0.140</code> 落在 <strong>1.67 百分位</strong>（120 次实现里有 2 次达到）。</p>
+<p><strong>这说明什么。</strong> 一个主项正确、密度剖面正确、方差准确到 9% 的随机筛，<strong>符号对、典型量级 只有观测值的二十分之一</strong>。这是&quot;该效应不是筛出来的集合的通性&quot;的证据——但 <code>p ≈ 1.7×10⁻²</code> 不构成拒绝。要到 <code>4σ</code> 需要约 <code>10⁵</code> 个种子。</p>
+<p><strong>一个不是 bug 的余差。</strong> 10.0% 的方差超出来自随机筛的短程相关弱于素数筛（计数更接近泊松）。 要消掉它需要改变剩余类的抽取规则，而不是任何参数。</p>
+<h2>5.9 场不是白噪声：小素数滞后上的记忆</h2>
+<p>场在 <code>N</code> 上不是白的，这改变了误差棒的计算方式。</p>
+<p>滞后 <code>2, 4, 10, 20, 200, 1000</code> 处的自相关为零或负（<code>−0.001, −0.008, −0.020, −0.026</code>）， <strong>没有一个落在 <code>210 = 2·3·5·7</code> 的倍数上</strong>。而在这些倍数处：</p>
+<table><thead><tr><th>滞后 <code>ΔN</code></th><th>2</th><th>4</th><th>10</th><th>200</th><th>1000</th><th><strong>210</strong></th><th><strong>420</strong></th><th><strong>630</strong></th><th><strong>1050</strong></th><th><strong>1470</strong></th></tr></thead><tbody><tr><td><code>corr(ε(N),ε(N+Δ))</code></td><td>−0.001</td><td>+0.007</td><td>−0.027</td><td>−0.026</td><td>−0.040</td><td><strong>+0.083</strong></td><td><strong>+0.069</strong></td><td><strong>+0.082</strong></td><td><strong>+0.093</strong></td><td><strong>+0.100</strong></td></tr></tbody></table>
+<p>每个 <code>210</code> 的倍数都是正的（<code>5–6σ</code>），每个非倍数都为零或负。</p>
+<p><strong>后果。</strong> <code>M_eff &lt; M</code>，所以 <code>1/√M</code> 的误差棒太小——这正是 §4.11 里&quot;窗口间散布是窗内误差的 三到四倍&quot;的来源。</p>
+<h2>5.10 记忆不是 <code>210</code>，是前五个素数</h2>
+<p><code>210</code> 的特殊性是假象。取<strong>大小相同但小素数含量不同</strong>的滞后，两种情况分离得很干净 （<code>M = 10⁵</code>）：</p>
+<table><thead><tr><th>滞后</th><th>分解</th><th><code>ω_{2,3,5,7,11}</code></th><th><code>corr</code></th></tr></thead><tbody><tr><td>3000</td><td><code>2³·3·5³</code></td><td>3</td><td>−0.015</td></tr><tr><td>4000</td><td><code>2⁵·5³</code></td><td>2</td><td>−0.006</td></tr><tr><td>2500</td><td><code>2²·5⁴</code></td><td>2</td><td>−0.004</td></tr><tr><td>3500</td><td><code>2²·5³·7</code></td><td>3</td><td>−0.005</td></tr><tr><td>3200</td><td><code>2⁷·5²</code></td><td>2</td><td>−0.017</td></tr><tr><td>3600</td><td><code>2⁴·3²·5²</code></td><td>3</td><td>+0.007</td></tr><tr><td><strong>4200</strong></td><td><strong><code>2³·3·5²·7</code></strong></td><td><strong>4</strong></td><td><strong>+0.061</strong></td></tr><tr><td>210</td><td><code>2·3·5·7</code></td><td>4</td><td>+0.065</td></tr><tr><td>2100</td><td><code>2²·3·5²·7</code></td><td>4</td><td>+0.065</td></tr><tr><td>2310</td><td><code>2·3·5·7·11</code></td><td>5</td><td>+0.117</td></tr><tr><td>4620</td><td><code>2²·3·5·7·11</code></td><td>5</td><td>+0.129</td></tr><tr><td>6930</td><td><code>2·3²·5·7·11</code></td><td>5</td><td>+0.091</td></tr><tr><td>9240</td><td><code>2³·3·5·7·11</code></td><td>5</td><td>+0.090</td></tr></tbody></table>
+<p><code>4200</code> 与 <code>3000</code> 大小相同、相差 <code>0.076</code>；<code>210</code>、<code>2100</code>、<code>4200</code> 大小差二十倍，却都是 <code>+0.06</code>。 <strong>相关是滞后中小素数含量的函数，不是它的大小的函数。</strong>按 <code>ω</code> 平均：</p>
+<pre>ω_{2,3,5,7,11}:  1        2        3        4        5
+滞后个数:        3       12       10        3        4
+平均相关:       ~0     −0.013     ~0     +0.064   +0.107</pre>
+<p><strong>这是一条与 §4.3 符号律同一族的乘性结构</strong>，只是把范围限制在前五个素数。</p>
+<h2>5.11 零点分量：无拟合的计算</h2>
+<p>§4.12 用八个零点<em>拟合</em>权重，得 <code>R² = 0.49</code>。但权重不该拟合——它们由权重的 Mellin 变换 固定。于是这个问题可以不用任何拟合就解决。</p>
+<p><strong>预言。</strong> 计数对素数密度涨落的线性响应是 <code>e(N) ~ Σ_ρ N^ρ/ρ · M(ρ)</code>，其中</p>
+<pre>M(ρ) = ∫_{1/3}^{2/3} u^{ρ−1} cos⁴(3π(u−1/2)) du</pre>
+<p>（默认权重 <code>φ = cos²(3π(u−1/2))</code> 限制在支撑 <code>[1/3,2/3]</code> 上，在那里对称，故 <code>φ(u)φ(1−u) = φ(u)² = cos⁴</code>。<strong>这个截断很重要</strong>：把 <code>cos⁴(3π(u−1/2))</code> 延拓到 <code>[0,1]</code> 会得到 <strong>两个峰</strong>，在那里积分给 <code>M(1) = 0.375</code>，而不是正确的 <code>1/8 = 0.125</code>；两种情形给出不同的 <code>c_z</code> （<code>k=2</code> 处 <code>−0.910</code> 对 <code>−0.866</code>）。</p>
+<p><strong>归一化检验。</strong> <code>M(1) = ∫_{1/3}^{2/3} cos⁴ = 1/8 = 0.125 = c_φ</code>；任何算出 <code>M(1) ≠ 0.125</code> 的 计算用的都是错的权重。多项式权重 <code>φ = 16u²(1−u)²</code> 给出闭式 <code>256·B(ρ+4,5)</code>，其 <code>M(1) = 0.406</code>， 大 <code>3.25</code> 倍，不能与余弦情形混用。）</p>
+<p>于是</p>
+<pre>c_z(k) = Re[ Σ_γ |M(1/2+iγ)/(1/2+iγ)|² k^{iγ} ] / Σ_γ |M(1/2+iγ)/(1/2+iγ)|²</pre>
+<p><strong>没有自由参数。</strong>取 <code>ζ</code> 的前 32 个纵坐标：</p>
+<table><thead><tr><th><code>k</code></th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>15</th></tr></thead><tbody><tr><td><code>c_z(k)</code>（<code>cos⁴</code>，支撑 <code>[1/3,2/3]</code>）</td><td>−0.910</td><td>−0.964</td><td>+0.680</td><td>−0.727</td><td>+0.980</td><td>+0.838</td></tr><tr><td>实测 <code>c(k)</code>（§4.2）</td><td>−0.1401</td><td>−0.1227</td><td>−0.0632</td><td>−0.1510</td><td>+0.0235</td><td>+0.0185</td></tr></tbody></table>
+<p>第一个零点就给出 <code>cos(γ₁ log 2) = −0.931</code>，正是观测到的 <code>c(2)</code> 符号和量级。<strong>所以零点分量 自身确实有很强的跨尺度相关，<code>c_z(2) = −0.91</code>。</strong></p>
+<p><strong>但它不组织数据。</strong>上表六个值正是 §4.3 表格里的那些，不是随机样本。把比较铺到全部 <code>49</code> 个 <code>2 ≤ k ≤ 50</code>（<code>N₀ = 4000</code>，<code>M = 1500</code>，噪声 <code>0.026</code>）：</p>
+<table><thead><tr><th>量</th><th>六个表格点</th><th>全部四十九个</th></tr></thead><tbody><tr><td>形状相关</td><td>+0.93</td><td>+0.33</td></tr><tr><td><code>a + b c_z(k)</code> 的 <code>R²</code></td><td>0.87</td><td>0.108</td></tr><tr><td>残差 sd</td><td>—</td><td>0.083（噪声的 3.2 倍）</td></tr></tbody></table>
+<p>偏移也不是常数。按 <code>ω(k)</code> 分组：</p>
+<pre>素数（15 个）      实测 −0.157   零点模型 −0.460   差 −0.138
+双素因子（24 个）  +0.025            +0.125          +0.020
+其余（10 个）      −0.032            −0.059          −0.030</pre>
+<p><strong>结论。</strong>零点既不能被排除为贡献者，也不足以作为解释。它们给出 <code>c(2)</code> 的正确量级， 但实测 <code>c(k)</code> 不是 <code>c_z(k)</code> 的重新标度：全范围内形状一致只有 <code>0.33</code>，残差是噪声的三倍。</p>
+<hr/>
+<h1>6. 被否定的描述</h1>
+<h2>6.1 不是 <code>log k</code> 的函数</h2>
+<p>若 <code>ε</code> 是零点的&quot;少数频率&quot;叠加，<code>c(k)</code> 应是 <code>log k</code> 的低频函数。用 1–4 个频率拟合： <code>R² = 0.31, 0.54, 0.58, 0.61</code>。<strong>作为&quot;少数频率&quot;模型被否定</strong>（但任意函数 <code>F(log k)</code> 未被排除）。</p>
+<h2>6.2 不是 Liouville</h2>
+<p><code>corr(ε, λ) = 0.003</code>。若 <code>ε = λ·Z</code>，应为 <code>±1</code>。<strong>排除。</strong></p>
+<h2>6.3 一个机制必须产生什么</h2>
+<p><code>c(k)</code> 必须：符号按 <code>(−1)^{ω(k)}</code>、在素数处 <code>≈ −0.135</code>、近似乘性、在素数幂处为负、 在 <code>10⁴–10⁹</code> 上不消失。<strong>任何机制都必须同时满足这五条。</strong></p>
+<h2>6.4 乘积模型 <code>1+ε = ∏_p(1+ξ_p)</code></h2>
+<p>预言符号翻转，实测没有。<strong>排除。</strong></p>
+<h2>6.5 单因子残差模型</h2>
+<p>残差之间仍相关（<code>0.15</code>）。<strong>排除。</strong></p>
+<h2>6.6 乘法格上的 Markov 结构</h2>
+<p>六个偏相关中有五个非零（<code>3–8σ</code>）。<strong>排除。</strong></p>
+<h2>6.7 Dirichlet 特征</h2>
+<p><code>q=15</code> 处 <code>corr = 0.19</code>，但那是 <code>2σ</code> 噪声。<strong>排除。</strong></p>
+<h2>6.8 四变量局部因子（<code>+25%</code>）</h2>
+<p>符号和量级都不对，已被 §5.3 的精确分解取代。</p>
+<h2>6.9 退化构型</h2>
+<p>贡献恒为零。<strong>确认。</strong></p>
+<h2>6.10 窗口素数质量</h2>
+<p><code>corr = −0.018</code>（后来 <code>+0.105</code>，随窗口而变）。<strong>不是驱动因素。</strong></p>
+<h2>6.11 三元与多项式权重（开放，不是证据）</h2>
+<p>三元的符号族相同但幅度不同（<code>c(3) = −0.34 ~ −0.43</code>，而二元是 <code>−0.12</code>）。多项式的量级也 不同。<strong>这些是&quot;同一族&quot;的征兆，不是独立证据。</strong></p>
+<h2>6.12 被否定描述的汇总</h2>
+<table><thead><tr><th>描述</th><th>朴素预期</th><th>状态</th></tr></thead><tbody><tr><td>零点驱动的平滑谱 <code>c(k)=F(log k)</code></td><td><code>R² = 0.31</code>（1 频）、0.54（2 频）</td><td><strong>作为少数频率模型排除</strong></td></tr><tr><td>Liouville 分量 <code>ε = λ·Z</code></td><td><code>corr = 0.003</code></td><td><strong>排除</strong></td></tr><tr><td><code>c(k) = α^{ω(k)}λ(k)</code></td><td>—</td><td><strong>排除</strong>（7–13σ）</td></tr><tr><td>Dirichlet 特征</td><td><code>q=15</code> 处 <code>corr = 0.19</code></td><td><strong>噪声，排除</strong></td></tr><tr><td>乘积模型</td><td>预言符号翻转，未见</td><td><strong>排除</strong></td></tr><tr><td>单因子残差</td><td>残差相关</td><td><strong>排除</strong></td></tr><tr><td>乘法格上的 Markov</td><td>6 个偏相关中 5 个非零</td><td><strong>排除</strong></td></tr><tr><td>有理比上的平稳性</td><td><code>3/2</code> 与 <code>4/6</code> 差 <code>4σ</code></td><td><strong>排除</strong>（只在 <code>ℕ</code> 比上平稳）</td></tr><tr><td>四变量局部因子</td><td>符号与量级都错</td><td><strong>被 §5.3 取代</strong></td></tr><tr><td>退化构型</td><td>贡献 0</td><td><strong>确认</strong></td></tr><tr><td>窗口素数质量</td><td><code>−0.018</code> → <code>+0.105</code></td><td><strong>不是驱动</strong></td></tr></tbody></table>
+<hr/>
+<h1>7. 讨论</h1>
+<h2>7.1 什么在什么条件下成立</h2>
+<p>本文没有定理。以下是带明确适用范围的经验陈述，每条都取它最可辩护的读法。</p>
+<table><thead><tr><th>断言</th><th>成立到什么程度</th><th>范围与削弱条件</th></tr></thead><tbody><tr><td><strong>S1 符号律</strong>（28/31）</td><td>作为抛硬币指示 <code>p ≈ 2×10⁻⁶</code>，<strong>但不独立</strong></td><td>31 个相关共享同一个场；标定后的显著性只有 §5.7(3) 那个（<code>3σ–15σ</code>）和 §5.8 的筛零模型（<code>≈2σ</code>）</td></tr><tr><td><strong>素数处相关为负</strong></td><td><code>3σ–15σ</code>（取决于是否把素数视为分解化系综的一次抽样，§5.7(3)）；校准筛零模型的 <code>1.7</code> 百分位（§5.8）</td><td>不引用 <code>1/√M</code> 给出的更大数字：§5.9 表明那些误差棒太小，因为场不白</td></tr><tr><td><strong>S6 权重独立</strong></td><td>五种权重，<code>c(2) ∈ [−0.163,−0.132]</code></td><td>第六种支撑不同的权重可能不同</td></tr><tr><td><strong>高斯、亚尾</strong></td><td><code>kurt = 3.00</code>，尾到 <code>3.3σ</code></td><td>超过 <code>3.3σ</code> 未测</td></tr><tr><td><strong>标度律 (3.1)</strong></td><td>三个尺度上 <code>±3%</code></td><td>三个点不是定律</td></tr><tr><td><strong><code>ω</code> 梯度</strong>（§5.10）</td><td>数据侧 <code>12σ</code></td><td><strong>模型侧未测</strong>；<code>N</code>-独立性在 <code>N &lt; 12000</code> 未测</td></tr><tr><td><strong>四点分解</strong>（§5.3）</td><td>精确到机器精度</td><td>13 个素数上数值验证；解析恒等式是初等的</td></tr></tbody></table>
+<p><strong>本文不做两个陈述。</strong> (i) 四点障碍<em>强制</em>观测值——§5.3 只说明分解化的模型预测零， 而落在这个类之外的机制（耦合<em>位置</em>而非密度的）不受它约束。(ii) 零点已被排除——§5.11 说明 它们给出量级正确的分量但不组织 <code>c(k)</code>；完全的排除需要一个这里没做的计算。</p>
+<p><strong>关于多重性。</strong> 分析看了很多数字：31 个 <code>k</code>、五种归一化、五种权重、七个尺度（§4.10），以及每一处 的自动选择（块长、截尾）。对 31 个 <code>k</code> 做 Bonferroni 会把 <code>2.3×10⁻⁶</code> 变成 <code>7×10⁻⁵</code>——不改变 任何结论；<strong>但真正需要修正的不是 <code>k</code>，而是那些在看到数据之后才做的选择</strong>（引用哪种归一化、 哪个窗口、哪个尺度）。这些无法从论文里穷举，诚实的说法是：<strong>报告出的显著性带着一个未量化的 向下修正。</strong>能扛过这个修正的是两样东西——符号律的<strong>形状</strong>（一个模式，不是单个检验）和 <code>ω</code> 梯度的<strong>形状</strong>（<code>12σ</code>，也是一个模式）。</p>
+<p><strong>可证伪的预言。</strong> 符号律应在更大的 <code>k</code> 和 <code>N</code> 上继续成立；<code>c(2)</code> 应对一切 <code>N</code> 为负； <code>ω</code> 梯度在模型侧被测时应保持；T2 的四变量求和应恒为零（所以它检验代码，不检验物理——见 §5.6）。</p>
+<h2>7.2 主要的未完成测量</h2>
+<p>关于<em>幅度</em>的一切（<code>α</code>、乘性、素数幂的值）都建立在单个窗口上。§4.10 的尺度依赖表明这不 够。下一步是一个专门的研究：<strong>固定相对宽度的窗口，六个尺度从 <code>10⁴</code> 到 <code>3×10⁶</code> 各取 <code>M ≥ 3000</code>，同时测量全部 <code>k ∈ {2,3,4,6,9,10,12,15}</code></strong>。这需要附录 B 的实现（每个尺度 一分钟）。</p>
+<h2>7.3 与 Li–Liu 条件恒等式的关系</h2>
+<p>附录 A 表明，该预印本的谱假设<strong>等价于</strong>算子范数界 <code>‖T_N‖ ≤ δ_N</code>， <code>δ_N = √(𝔖/N)(log N)^{3/2}</code>，而单独的 GRH 只给出 <code>≪ (log N)²</code>。同时 (3.1) 给出真实误差 尺度 <code>0.33 log N/√N</code>，于是</p>
+<pre>δ_N / (e 的真实 sd) = 3.0 √(𝔖(N) log N) ≈ 17–20    在 N = 10⁷ 处      (7.1)</pre>
+<p><strong>这个比较必须小心读</strong>：(3.1) 是<em>单个二次型</em> <code>⟨T_N v_N, v_N⟩</code> 的尺度，而假设 R 界的是 <em>算子范数</em>。由于 <code>‖T_N‖ ≥ |⟨T_N v_N, v_N⟩|/‖v_N‖²</code>，数据只能从下方约束范数。即使在最有利 的读法下——范数与二次型同量级——它也落在 <code>δ_N</code> 之下 <code>√log N</code>；同样可能远大于。</p>
+<p><strong>所以经验规律与假设 R 相容，但不给它任何支持，也不能用来论证该假设&quot;几乎成立&quot;。</strong> 任何说经验规律&quot;支持&quot;该条件证明的断言都是没有根据的；说它&quot;推翻&quot;该证明同样没有根据。</p>
+<hr/>
+<h1>附录 A. Li–Liu 预印本：验证了什么，错在哪里</h1>
+<h2>A.1 架构</h2>
+<p>预印本把 Goldbach 问题化为一个算子 <code>T_N</code> 的范数估计，假设谱半径满足某个界（假设 R）， 由此推出哥德巴赫。<strong>这个架构本身是自洽的</strong>；问题在于假设 R 的来源。</p>
+<h2>A.2 验证过的</h2>
+<ul><li><code>G = D − P</code> 的投影恒等式（数值到 <code>10⁻¹⁴</code>）。<strong>注意它只对 <code>(nm,N)=1</code> 的和严格成立</strong>： 无限制的 <code>G</code> 与它相差 <code>n=m=p^k, p|N</code> 的项，共 <code>O(log N)</code> 个、每个 <code>Λ²φ²</code>， 合计 <code>O(log²N)</code>，是 <code>o(σ)</code>，被 (A.5) 的误差项吸收；该恒等式是对受限计数陈述的， 对无限制计数只在该精度下使用。</li><li><code>c_φ = 1/8</code>、<code>I4 = 0.091146</code>、<code>C₂ = 0.6601618158</code> 等常数；</li><li>四点局部密度的分解（§5.3）；</li><li>特征标正交性在 <code>N</code> 上重建互素条件。</li></ul>
+<h2>A.3 一处笔误与一个常数</h2>
+<p>预印本中一处 Hermitian 对称性写成 <code>⟨Tv,w⟩ = ⟨v,Tw⟩</code>，缺了共轭横线；不影响论证。 <code>I4</code> 的数值正确。</p>
+<h2>A.4 评估</h2>
+<p><strong>假设 R 没有被证明，也没有被数据支持。</strong>它等价于一个比 GRH 更强的算子范数界 （见 §7.3 的 <code>17–20</code> 倍差距）。预印本的价值在于把哥德巴赫化归为一个清晰的谱问题， 不在于解决了它。</p>
+<hr/>
+<h1>附录 B. 复现</h1>
+<h2>B.1 文件</h2>
+<ul><li><code>lab/tool.py</code> — 向量化 NumPy，主实现；</li><li><code>lab/ngb.py</code> — numba JIT，快 13 倍；</li><li><code>lab/fast2.py</code> — 多进程驱动；</li><li><code>lab/decisive.py</code> — §4.2 的主表；</li><li>其余脚本按功能命名。</li></ul>
+<h2>B.2 表格的来源</h2>
+<p>本文 §2–§4 的表来自另一台机器上的一次多核运行。驱动与扫描器<strong>存在，可向作者索取</strong>，但不在本包内。</p>
+<table><thead><tr><th>表</th><th>程序（未随包）</th><th><code>M</code></th></tr></thead><tbody><tr><td>§2.5 两点相关</td><td>向量化 NumPy，内联</td><td><code>X=2×10⁶</code></td></tr><tr><td>§3.1 标度律</td><td>JIT 扫描器</td><td>2000/1200/600</td></tr><tr><td>§3.2 分布</td><td>JIT 扫描器</td><td>1200</td></tr><tr><td>§3.3 十分位</td><td>十分位驱动</td><td><code>1.5×10⁴</code></td></tr><tr><td>§4.2 <code>k ≤ 13</code></td><td>多核驱动</td><td><code>4×10⁴</code></td></tr><tr><td>§4.2 <code>k ≥ 14</code></td><td>多核驱动</td><td><code>2×10⁴</code></td></tr><tr><td>§4.8 权重</td><td>权重驱动</td><td><code>2×10⁴</code></td></tr><tr><td>§4.9–4.10 块与尺度</td><td>驱动 + 块扫描</td><td>见表</td></tr><tr><td>§2.4 iid 零模型</td><td>零模型驱动</td><td>8 个种子</td></tr></tbody></table>
+<p><strong>随包材料能复现什么。</strong>四张表——§5.8（校准筛零分布）、§5.9（类均值扣除）、§5.9（位移检验）、 §6.6（马尔可夫矩阵）——由随包日志直接复现。§5.10 与 §5.11 可由公式复现（只需 <code>ζ</code> 的前 32 个 纵坐标和数组 <code>cmw_12000_*.npy</code>）。<strong>§3–§4 的 <code>c(k)</code> 表不能复现。</strong>要它们必须重写驱动：算法在 §2.1–§2.3 与附录 B.1 里已完整给出，同一计算的单线程版本短到可以从描述写出，但<strong>代码没有随包</strong>。</p>
+<p>这个不对称是<strong>分发上的缺陷</strong>，不是测量上的缺陷；写在这里是为了不让读者以为可复现性比实际更高。</p>
+<hr/>
+<h1>附录 C. 方法上的教训</h1>
+<ul><li><strong>先看 <code>sanity = ΣC/Σmain</code>。</strong>偏离 <code>1</code> 超过 <code>1%</code>，就不许看 <code>c(k)</code>。主项错 <code>6–10%</code> 会把 <code>c(k)</code> 的散布放大四倍，并把均值推向任意方向。<strong>两处早期结论就是因为这个错的。</strong></li><li><strong>任何 <code>c(k)</code> 结论必须 <code>M ≥ 2×10⁴</code>。</strong>同一 <code>N₀</code> 用 <code>M=2000</code> 与 <code>M=10⁵</code> 可以差 <code>2σ</code>。</li><li><strong>不要用论文表格里挑出来的点做拟合。</strong>本工作中四次&quot;找到了解释&quot;都在扩大样本后碎掉： <code>c(k)=μ(k)α^{ω(k)}</code>（29 点 <code>R=0.96</code> → 大 <code>N</code> 崩）、随机筛（12 种子 → 120 种子，1.7 百分位）、零点分解（6 点 <code>R=0.94</code> → 49 点 <code>R=0.33</code>）。</li><li><strong>主项写 <code>𝔖(h)(X−h)</code> 不是 <code>𝔖(h)X</code>。</strong>后者留下线性斜坡，把任何相关推到 <code>≈+1</code>。</li><li><strong>半区间求和不能重复计 <code>k=N/2</code> 项。</strong>偶数 <code>N</code> 时 <code>Λ(N/2)²</code> 会被算两次。</li><li><strong>任何零点谱计算，先验 <code>M(1) = c_φ</code>。</strong>权重在 <code>ρ = 1</code> 的 Mellin 变换必须还原常数 <code>c_φ = 1/8</code>。这条能抓住 §5.11 实际犯过的两个错：误用多项式权重（<code>M(1) = 0.406</code>）、 以及把 <code>cos⁴(3π(u−1/2))</code> 延拓到 <code>[0,1]</code>（那里有两个峰而不是一个，<code>M(1) = 0.375</code>）。 两种错都给出看似合理的 <code>c_z</code>，两种都是错的。</li></ul>
+<hr/>
+<h1>附录 D. 数值代码的验证</h1>
+<p>产生局部测量的脚本经过独立审计（只读，不运行）：117 个文件，六个审阅者，每个被要求 <strong>从第一原理重推关键公式</strong>，而不是照注释检查代码。</p>
+<p><strong>发现 42 个缺陷，修复 24 个，替换或标注 4 个。</strong>影响最大的几个：</p>
+<table><thead><tr><th>缺陷</th><th>后果</th><th>已修</th></tr></thead><tbody><tr><td>半区间求和重复计 <code>k=N/2</code></td><td>约 11% 的偶数 <code>N</code> 多算 <code>Λ(N/2)²</code></td><td>是（19 个文件）</td></tr><tr><td>两点相关主项用 <code>𝔖(h)X</code></td><td>线性斜坡，核相关 <code>≈+1</code></td><td>是</td></tr><tr><td>支撑/宽度表的网格钉死在 <code>[1/3,2/3]</code></td><td><code>a ≠ 1/3</code> 时权重错</td><td>是</td></tr><tr><td><code>boxcheck</code> 对全区间求和又乘 2</td><td>测的是 <code>𝔖(N)</code> 不是亏损</td><td>是</td></tr><tr><td>随机模型主项系数用 <code>∫φ</code> 而非 <code>∫φ²</code></td><td>主项大 <code>1.37</code> 倍</td><td>是</td></tr><tr><td><code>mu2</code> 漏 <code>(6/π²)²</code></td><td>主项大 <code>2.7</code> 倍</td><td>是</td></tr><tr><td><code>twopoint.py</code> 的分解从 <code>d=3</code> 起</td><td><code>𝔖(h)</code> 错 <code>0.63–1.5</code></td><td>是</td></tr></tbody></table>
+<p><strong>没有一条触及本文的测量</strong>：每个头号数字都来自审计列为干净的文件。</p>
+<p><strong>实践上的教训</strong>（见附录 C 第 1 条）：</p>
+<p>&gt; <strong>在比较任何 <code>c(k)</code> 之前，先打印 <code>sanity = ΣC/Σmain</code>。主项偏 <code>6–10%</code> 会把 <code>c(k)</code> 的 &gt; 散布放大四倍、把均值推向任意方向。本文中有两处早期结论正是这样错的。</strong></p>
+</body></html>

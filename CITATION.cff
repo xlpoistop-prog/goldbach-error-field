@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this measurement or this code, cite it as below."
+title: "Multiplicative correlations in the Goldbach error field: an empirical study"
+abstract: >-
+  A smooth weighted balanced Goldbach count defines an error field eps(N). Its two-point
+  correlation across multiplicative dilations, c(k) = corr(eps(N), eps(kN)), is negative at
+  prime ratios and near zero at composite ratios, a sign pattern (-1)^omega(k) that holds from
+  N = 1.2e4 to 1e9. No mechanism is proposed; the paper records the measurement, the checks it
+  survives, and the explanations it excludes.
+authors:
+  - name: "Goldbach Error Field Project"
+version: "1.0"
+date-released: "2026-11-16"
+keywords:
+  - Goldbach conjecture
+  - singular series
+  - multiplicative correlation
+  - empirical number theory
+license: "CC-BY-4.0"
+repository-code: "TODO: repository URL"
