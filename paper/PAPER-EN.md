@@ -32,11 +32,11 @@ effect survives inside blocks of width 40), of the factorisation of `N`, of a ra
 (`−0.017±0.025`), or of any smooth trend.
 
 The field is, however, **not white**, and this is a separate regularity: its autocorrelation is
-zero at lags `2, 4, 10, 20, 200, 1000` and positive at lags that share small-prime factors,
-growing with the number of the first five primes dividing the lag and independent of its size —
-`+0.064` at `k = 210`, `+0.117` at `k = 2310`, `+0.129` at `k = 4620`, and about zero for lags
-of the same magnitude without that structure (§5.10). The corresponding error bars are larger
-than `1/sqrt(M)` would give.
+`≈0` (within `2σ`) at lags that are not multiples of `30`, and positive at lags that are —
+`+0.216` at `ΔN = 210`, `+0.238` at `630`, `+0.146` at `2100` — corresponding to a drifting
+period-`30` component that carries `≈18%` of the variance and is *not* a residue-class mean
+shift (§5.9, §5.10). The corresponding error bars are about `1.5` times larger than `1/sqrt(M)`
+would give.
 
 We also record a structural obstruction that makes the measurement *surprising*: `G(N)` uses
 primes in `[N/3,2N/3]` while `G(kN)` uses `[kN/3,2kN/3]`, and for `k=2` these intervals are
