@@ -9,6 +9,11 @@ abstract: >-
   survives, and the explanations it excludes.
 authors:
   - name: "Goldbach Error Field Project"
+doi: "10.5281/zenodo.24314688"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24314688"
+    description: "concept DOI (all versions); this version is 10.5281/zenodo.24314689"
 version: "1.0"
 date-released: "2026-11-16"
 keywords:

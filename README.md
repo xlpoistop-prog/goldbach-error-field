@@ -1,5 +1,7 @@
 # Multiplicative correlations in the Goldbach error field
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24314688.svg)](https://doi.org/10.5281/zenodo.24314688)
+
 *https://github.com/xlpoistop-prog/goldbach-error-field*
 
 **An empirical note, and a reproducibility package.**  No theorem is proved here.  What is
@@ -13,6 +15,17 @@ falsification test it suggests.
 * data: [`data/`](data/) — the csv files behind the tables
 * how to run everything: [`REPRODUCING.md`](REPRODUCING.md)
 * checksums: [`SHA256SUMS.txt`](SHA256SUMS.txt)
+
+## Citing
+
+This repository is archived on Zenodo, so it has a DOI:
+
+```
+Goldbach Error Field Project. "Multiplicative correlations in the Goldbach
+error field: an empirical study." Zenodo, 2026. doi:10.5281/zenodo.24314688
+```
+
+The concept DOI (`10.5281/zenodo.24314688`) always resolves to the latest version; `10.5281/zenodo.24314689` is v1.0.
 
 ## What the measurement is
 
